@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  react-frontend:
+    container_name: react-ngnix-frexco
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/frexco"
+      - "./frexco/node_modules"
+    ports:
+      - "3000:3005"
+    environment:
+      - NODE_ENV=development
