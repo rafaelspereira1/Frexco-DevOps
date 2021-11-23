@@ -1,4 +1,4 @@
-FROM node:16.9.1-alpine as react_build 
+FROM node:16-alpine as react_build 
 
 #Define a pasta do app em React
 WORKDIR /frexco
@@ -7,17 +7,18 @@ WORKDIR /frexco
 COPY ./frexco /frexco
 
 #Prepara o container para o build do React
-RUN npm install --silent
-RUN npm install react-scripts@4.0.3 -g --silent
-RUN npm run build
+RUN npm install
+RUN npm install react-scripts@4.0.3 -g
+RUN npm run 
 
-#Prepara o NGINX
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
 FROM nginx:1.21.4-alpine as nginx
-COPY --from=react_build /frexco/build /usr/share/nginx/html
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx/nginx.conf /etc/nginx/conf.d 
 
-#Inicia o NGINX
-
+ENV NODE_ENV=production
 EXPOSE 80
-CMD ["nginx", "-g","daemon off;"]
+ENTRYPOINT [ "nginx" ]
+
+CMD [ "-g", "daemon off;" ]

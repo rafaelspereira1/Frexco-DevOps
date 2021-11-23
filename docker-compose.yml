@@ -1,15 +1,23 @@
-version: "3.8"
+version: "3.4"
 
 services:
   react-frontend:
-    container_name: react-ngnix-frexco
+    container_name: react-frontend
     build:
       context: .
       dockerfile: Dockerfile
+      target: react_build
+    environment:
+      - NODE_ENV=development
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: nginx
     volumes:
-      - ".:/frexco"
-      - "./frexco/node_modules"
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
     ports:
-      - "3000:3005"
+      - "80:80"
     environment:
       - NODE_ENV=development
