@@ -22,6 +22,7 @@ $ git clone https://github.com/rafaelspereira1/Frexco-DevOps
 $ cd Frexco-DevOps
 
 # Inicialize o container com o docker compose
+$ docker-compose build
 $ docker-compose up
 
 # Para finalizar o container
